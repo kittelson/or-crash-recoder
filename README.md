@@ -1,6 +1,6 @@
 Code for running locally
 
-streamlit run .\Crash-Recoder-OR.py --server.port 8502
+streamlit run .\OR-Crash-Recoder.py --server.port 8502
 
 
 Website
