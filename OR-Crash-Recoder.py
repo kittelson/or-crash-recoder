@@ -1080,7 +1080,7 @@ def excel_table_export(df, df_pivot):
     viz_file = get_url("viz")
 
     try:
-        workbook = load_workbook(download_excel(viz_file))
+        workbook = load_workbook((viz_file))
 
         col_name_df = generate_column_names(df, df_pivot)  # generate column names
         df = df[df["Record Type"] == 3].reset_index()
@@ -1118,11 +1118,11 @@ def excel_table_export(df, df_pivot):
 
 def get_url(url_desc):
     if url_desc == "web_image":
-        return 'https://github.com/aavrkai/Crash_Recoder_OR/blob/main/brandfolder/Banner.png?raw=True'
+        return 'brandfolder/Banner.png'
     elif url_desc == "dict":
-        return "https://github.com/aavrkai/Crash_Recoder_OR/raw/main/templates/Dictionary_OR.xlsx"
+        return "templates/Dictionary_OR.xlsx"
     elif url_desc == "viz":
-        return "https://github.com/aavrkai/Crash_Recoder_OR/raw/main/templates/Visualizer_OR.xlsx"
+        return "templates/Visualizer_OR.xlsx"
     else:
         pass
 
@@ -1229,4 +1229,4 @@ if __name__ == '__main__':
 
     else:
         time.sleep(2)
-        st.markdown(f"""<h5 style='text-align: center; font-size: 1.5em;'>{"Your download has started. Thank you for using the tool. Refresh the webpage to use the tool again."}</h5>""", unsafe_allow_html=True)
+        st.markdown(f"""<h5 style='text-align: center; font-size: 1.5em;'>{"Your download will start shortly. Thank you for using the tool. Refresh the webpage to use the tool again."}</h5>""", unsafe_allow_html=True)
