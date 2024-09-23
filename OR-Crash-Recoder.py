@@ -1100,11 +1100,11 @@ def excel_table_export(df, df_pivot):
             workbook = update_or_add_sheet_in_workbook(workbook, "Collision", df_pivot)
             workbook = update_or_add_sheet_in_workbook(workbook, "COI", col_name_df)
 
-            # Save the final output to BytesIO
-            final_output = BytesIO()
-            workbook.save(final_output)
+            # # Save the final output to BytesIO
+            # final_output = BytesIO()
+            # workbook.save(final_output)
             
-            return final_output
+            return workbook
             
         except Exception as err:
             st.text(err)
@@ -1208,24 +1208,25 @@ if __name__ == '__main__':
                     st.text(str(round(time.time() - start_time, ndigits=2))+"s"+": Creating new variables.....")
                     # logging.info(str(round(time.time() - start_time, ndigits=2)) + "s" + ": Creating new variables.....")
                     new_var_df = add_kai_variables(pivot_col_id) # Outputfilename 2 df
-
+                    new_var_df.to_csv(output_filename2, index= False)
                     st.text(str(round(time.time() - start_time, ndigits=2)) + "s" + ": Creating collision level data.....")
                     # logging.info(str(round(time.time() - start_time, ndigits=2)) + "s" + ": Creating collision level data.....")
                     pivot_df = pivot_data(new_var_df) # Output filename 1 df
-
+                    pivot_df.to_csv(output_filename1, index=False)
                     st.text(str(round(time.time() - start_time, ndigits=2)) + "s" + ": Exporting data to visualizer.....")
                     # logging.info(str(round(time.time() - start_time, ndigits=2)) + "s" + ": Exporting data to visualizer.....")
                     
                     visualizer_buffer = excel_table_export(new_var_df, pivot_df) #visualizer file
+                    visualizer_buffer.save(output_filename3)
 
                     # ....................................................................................................................
                     # logging.info(str(round((time.time() - start_time), ndigits=2)) + "s: Recoding complete.")
                     st.text(str(round((time.time() - start_time), ndigits=2)) + "s: Recoding complete.")
 
-                    zip = download_all_files(pivot_df, output_filename1, new_var_df, output_filename2, visualizer_buffer, output_filename3, output_filename)
+                    # zip = download_all_files(pivot_df, output_filename1, new_var_df, output_filename2, visualizer_buffer, output_filename3, output_filename)
                     
-                    if not st.session_state.downloaded:
-                        handle_downloads(zip)
+                    # if not st.session_state.downloaded:
+                    #     handle_downloads(zip)
 
     else:
         time.sleep(2)
